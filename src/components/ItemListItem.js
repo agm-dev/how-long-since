@@ -15,7 +15,6 @@ import {
   lightPrimary,
   lightSecondary,
   lightFont,
-  darkFont,
 } from '../styles/colors'
 import { DataContext } from '../context/DataContext'
 import { timeFormats, useInterval } from '../utils/time.utils'
