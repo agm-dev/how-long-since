@@ -1,3 +1,6 @@
+const hour = 1000 * 60 * 60
+const day = hour * 24
+
 export default class Item {
   constructor(data) {
     const { text, time, timeFormat } = data
@@ -13,19 +16,19 @@ export default class Item {
     let result
     switch (this.timeFormat) {
       case 'y':
-        result = diff / 1000 / 60 / 60 / 24 / 365
+        result = diff / (day * 365)
         break
       case 'M':
-        result = diff / 1000 / 60 / 60 / 24 / 30
+        result = diff / (day * 30)
         break
       case 'd':
-        result = diff / 1000 / 60 / 60 / 24
+        result = diff / day
         break
       case 'h':
-        result = diff / 1000 / 60 / 60
+        result = diff / hour
         break
       case 'm':
-        result = diff / 1000 / 60
+        result = diff / (hour * 60)
         break
       case 's':
         result = diff / 1000
