@@ -10,3 +10,19 @@ a:visited {
 .breakline {
   height: 5vh;
 }
+
+/* containers */
+.main-content {
+  margin-top: 2vh;
+}
+
+.buttons-container {
+  display: 'flex';
+  justify-content: 'flex-start';
+  margin-top: 6vh;
+
+  .icon {
+    margin-right: 1vh;
+    font-size: 20px;
+  }
+}

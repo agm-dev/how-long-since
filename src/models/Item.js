@@ -3,18 +3,18 @@ const day = hour * 24
 
 export default class Item {
   constructor(data) {
-    const { text, time, timeFormat } = data
+    const { text, time, format } = data
     this.id = (new Date()).getTime()
     this.text = text
     this.time = time
-    this.timeFormat = timeFormat || 'ms'
+    this.format = format || 'ms'
   }
 
   get howLong() {
     const now = (new Date()).getTime()
     const diff = now - this.time
     let result
-    switch (this.timeFormat) {
+    switch (this.format) {
       case 'y':
         result = diff / (day * 365)
         break
