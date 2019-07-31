@@ -23,6 +23,10 @@ import {
 } from '@material-ui/pickers'
 import { getCombinedDatetime, timeFormats } from '../utils/time.utils'
 
+const formatOptions = data => Object
+  .entries(data)
+  .map(([key, item], index) => <MenuItem key={index} value={item.tag}>{key}</MenuItem>)
+
 export default (props) => {
   const context = useContext(DataContext)
   const { addItem } = context
@@ -101,11 +105,7 @@ export default (props) => {
               onChange={updateFormat}
               inputProps={{ name: 'format', id: 'format-helper' }}
             >
-              {
-                Object
-                  .entries(timeFormats)
-                  .map(([key, item]) => <MenuItem value={item.tag}>{key}</MenuItem>)
-              }
+              {formatOptions(timeFormats)}
             </Select>
           </Grid>
         </Grid>
