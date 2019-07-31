@@ -21,7 +21,7 @@ import {
   TimePicker,
   MuiPickersUtilsProvider
 } from '@material-ui/pickers'
-import { getCombinedDatetime } from '../utils/time.utils'
+import { getCombinedDatetime, timeFormats } from '../utils/time.utils'
 
 export default (props) => {
   const context = useContext(DataContext)
@@ -31,7 +31,7 @@ export default (props) => {
   const [text, setText] = useState('')
   const [date, setDate] = useState(now)
   const [time, setTime] = useState(now)
-  const [format, setFormat] = useState('d')
+  const [format, setFormat] = useState(timeFormats.days.tag)
 
   const updateText = e => setText(e.target.value)
   const updateDate = date => setDate(date)
@@ -101,8 +101,11 @@ export default (props) => {
               onChange={updateFormat}
               inputProps={{ name: 'format', id: 'format-helper' }}
             >
-              <MenuItem value="y">Years</MenuItem>
-              <MenuItem value="d">Days</MenuItem>
+              {
+                Object
+                  .entries(timeFormats)
+                  .map(([key, item]) => <MenuItem value={item.tag}>{key}</MenuItem>)
+              }
             </Select>
           </Grid>
         </Grid>
