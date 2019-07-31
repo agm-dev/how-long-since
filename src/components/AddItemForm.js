@@ -17,6 +17,10 @@ import {
   Create as CreateIcon
 } from '@material-ui/icons'
 import {
+  lightPrimary,
+  darkFont,
+} from '../styles/colors'
+import {
   DatePicker,
   TimePicker,
   MuiPickersUtilsProvider
@@ -113,8 +117,11 @@ export default (props) => {
           <Button
             variant="contained"
             size="medium"
-            color="primary"
             onClick={add}
+            style={{
+              backgroundColor: lightPrimary,
+              color: darkFont,
+            }}
           >
             <CreateIcon className="icon" />
             Add

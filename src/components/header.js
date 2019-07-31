@@ -6,6 +6,10 @@ import {
   Toolbar,
   Typography,
 } from '@material-ui/core'
+import {
+  lightPrimary,
+  darkFont,
+} from '../styles/colors'
 
 import Menu from './Menu'
 
@@ -19,6 +23,8 @@ const Header = ({ siteTitle }) => {
           position: 'fixed',
           marginLeft: '-8px', // to remove margin 8px on body
           marginTop: '-8px', // to remove margin 8px on body
+          backgroundColor: lightPrimary,
+          color: darkFont,
         }}
       >
         <Toolbar style={{

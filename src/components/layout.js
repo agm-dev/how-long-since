@@ -12,6 +12,7 @@ import { Grid } from '@material-ui/core'
 
 import Header from "./header"
 import '../styles/index.scss'
+import { lightBackground, lightFont } from '../styles/colors'
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -27,7 +28,15 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <Grid container spacing={3}>
+      <Grid
+        container
+        spacing={3}
+        className="container"
+        style={{
+          backgroundColor: lightBackground,
+          color: lightFont,
+        }}
+      >
         {/* Main content section */}
         <Grid item xs={12}>
           {children}

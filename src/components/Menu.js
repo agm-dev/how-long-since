@@ -8,6 +8,9 @@ import {
 import {
   Menu as MenuIcon,
 } from '@material-ui/icons'
+import {
+  darkFont,
+} from '../styles/colors'
 
 export default () => {
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -29,7 +32,7 @@ export default () => {
         aria-haspopup="true"
         onClick={handleClick}
       >
-        <MenuIcon style={{ color: '#fff' }} />
+        <MenuIcon style={{ color: darkFont }} />
       </IconButton>
       <Menu
         id="menu"

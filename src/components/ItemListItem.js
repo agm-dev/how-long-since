@@ -11,6 +11,12 @@ import {
 import {
   Delete as DeleteIcon,
 } from '@material-ui/icons'
+import {
+  lightPrimary,
+  lightSecondary,
+  lightFont,
+  darkFont,
+} from '../styles/colors'
 import { DataContext } from '../context/DataContext'
 import { timeFormats, useInterval } from '../utils/time.utils'
 
@@ -36,11 +42,12 @@ export default ({ item }) => {
       marginBottom: '2vh',
       paddingTop: '1vh',
       paddingBottom: '1vh',
-      backgroundColor: '#e8eaf6',
+      backgroundColor: lightSecondary,
+      color: lightFont,
     }}>
       <ListItem>
         <ListItemAvatar>
-          <Avatar aria-label={displayText} style={{ backgroundColor: '#5c6bc0' }}>
+          <Avatar aria-label={displayText} style={{ backgroundColor: lightPrimary }}>
             {formatKey[0].toUpperCase()}
           </Avatar>
         </ListItemAvatar>
