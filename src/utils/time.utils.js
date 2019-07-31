@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import {
   getHours,
   setHours,
@@ -8,6 +9,22 @@ import {
   getMilliseconds,
   setMilliseconds,
 } from 'date-fns'
+
+export const useInterval = (callback, delay) => {
+  const savedCallback = useRef()
+
+  useEffect(() => {
+    savedCallback.current = callback
+  }, [callback])
+
+  useEffect(() => {
+    const tick = () => savedCallback.current()
+    if (delay !== null) {
+      let timer = setInterval(tick, delay)
+      return () => clearInterval(timer)
+    }
+  }, [delay])
+}
 
 export const getCombinedDatetime = (date, time) => {
   const hour = getHours(time)

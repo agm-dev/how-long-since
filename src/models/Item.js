@@ -11,8 +11,8 @@ const {
 
 export default class Item {
   constructor(data) {
-    const { text, time, format } = data
-    this.id = (new Date()).getTime()
+    const { id, text, time, format } = data
+    this.id = id || (new Date()).getTime()
     this.text = text
     this.time = time
     this.format = format || timeFormats.seconds.tag
@@ -41,6 +41,6 @@ export default class Item {
       default:
         result = diff / seconds.value
     }
-    return result
+    return parseInt(result.toFixed())
   }
 }

@@ -16,7 +16,7 @@ class DataProvider extends Component {
   componentDidMount() {
     const storedItems = JSON.parse(localStorage.getItem('items'))
     if (storedItems) {
-      this.setState({ todos: storedItems })
+      this.setState({ items: storedItems.map(item => new Item(item)) })
     }
   }
 
@@ -31,7 +31,7 @@ class DataProvider extends Component {
 
   addItem = item => {
     const { items } = this.state
-    const newItem = new Item({ ...item})
+    const newItem = new Item({...item})
     this.setState({ items: [...items, newItem] })
   }
 
