@@ -40,11 +40,13 @@ export default (props) => {
   const [date, setDate] = useState(now)
   const [time, setTime] = useState(now)
   const [format, setFormat] = useState(timeFormats.days.tag)
+  const [goal, setGoal] = useState(null)
 
   const updateText = e => setText(e.target.value)
   const updateDate = date => setDate(date)
   const updateTime = date => setTime(date)
   const updateFormat = e => setFormat(e.target.value)
+  const updateGoal = e => setGoal(Number(e.target.value) >= 0 ? Number(e.target.value) : 0)
   const add = e => {
     e.preventDefault()
     const combined = getCombinedDatetime(date, time).getTime()
@@ -52,6 +54,7 @@ export default (props) => {
       text,
       time: combined,
       format,
+      goal: goal > 0 ? goal : null,
     })
     navigate('/')
   }
@@ -112,21 +115,56 @@ export default (props) => {
               {formatOptions(timeFormats)}
             </Select>
           </Grid>
+          <Grid item xs={12}>
+            <Box style={{ marginTop: '3vh' }}>
+              <Typography variant="body1" paragraph>
+                You can set a goal. The task will be marked as completed as soon as you reach the time goal.
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <InputLabel htmlFor="goal">Goal</InputLabel>
+            <TextField
+              type="number"
+              id="goal"
+              name="goal"
+              value={goal || 0}
+              onChange={updateGoal}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              margin="normal"
+              style={{ marginTop: 0 }}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <InputLabel htmlFor="goal-format-helper">Format</InputLabel>
+            <Select
+              value={format}
+              onChange={updateFormat}
+              inputProps={{ name: 'goal-format', id: 'goal-format-helper' }}
+              disabled
+            >
+              {formatOptions(timeFormats)}
+            </Select>
+          </Grid>
+          <Grid item xs={12}>
+            <Box className="buttons-container">
+              <Button
+                variant="contained"
+                size="medium"
+                onClick={add}
+                style={{
+                  backgroundColor: lightPrimary,
+                  color: darkFont,
+                }}
+              >
+                <CreateIcon className="icon" />
+                Add
+              </Button>
+            </Box>
+          </Grid>
         </Grid>
-        <Box className="buttons-container">
-          <Button
-            variant="contained"
-            size="medium"
-            onClick={add}
-            style={{
-              backgroundColor: lightPrimary,
-              color: darkFont,
-            }}
-          >
-            <CreateIcon className="icon" />
-            Add
-          </Button>
-        </Box>
       </Container>
     </form>
   )

@@ -36,6 +36,10 @@ export default ({ item }) => {
     setDisplayText(getDisplayText())
   }, delay)
 
+  const goalText = item.goal ? `Goal: ${item.goal} ${formatKey}` : ''
+  const recordText = item.record ? `Record: ${item.howLongRecord} ${formatKey}` : ''
+  const secondaryText = `${goalText}${goalText.length ? '. ' : ''}${recordText}`
+
   return (
     <Card key={item.id} style={{
       marginBottom: '2vh',
@@ -51,7 +55,10 @@ export default ({ item }) => {
           </Avatar>
         </ListItemAvatar>
 
-        <ListItemText primary={displayText} />
+        <ListItemText
+          primary={displayText}
+          secondary={secondaryText}
+        />
 
         <ListItemSecondaryAction>
           <IconButton edge="end" aria-label="delete" onClick={remove}>
