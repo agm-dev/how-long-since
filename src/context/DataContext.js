@@ -44,6 +44,20 @@ class DataProvider extends Component {
     }
   }
 
+  resetItem = item => {
+    const { items } = this.state
+    const match = items.find(i => i.id === item.id)
+    if (match) {
+      const updatedItems = items.map(i => {
+        if (i.id === item.id) {
+          i.reset()
+        }
+        return i
+      })
+      this.setState({ items: updatedItems })
+    }
+  }
+
   render() {
     const { children } = this.props
     const { items } = this.state

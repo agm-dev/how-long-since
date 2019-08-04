@@ -65,6 +65,19 @@ export default class Item {
     return getFormattedTime(this.record, this.format)
   }
 
+  get isCompleted() {
+    if (this.goal === null) {
+      return false
+    }
+    const currentDiff = this.timeDiff
+    const timeFormatData = Object
+      .entries(timeFormats)
+      .find(([key, data]) => data.tag === this.format)
+      .pop()
+    const goalTime = timeFormatData.value * this.goal
+    return currentDiff >= goalTime
+  }
+
   reset() {
     const currentDiff = this.timeDiff
     const isTherePreviousRecord = this.record !== null

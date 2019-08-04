@@ -56,7 +56,9 @@ export default ({ item }) => {
         </ListItemAvatar>
 
         <ListItemText
-          primary={displayText}
+          primary={
+            <span className={item.isCompleted ? 'completed' : ''}>{displayText}</span>
+          }
           secondary={secondaryText}
         />
 

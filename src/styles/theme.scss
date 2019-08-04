@@ -11,6 +11,10 @@ a:visited {
   height: 5vh;
 }
 
+.completed {
+  text-decoration: line-through;
+}
+
 /* containers */
 .container {
   height: 100vh;
