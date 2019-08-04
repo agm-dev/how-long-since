@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core'
 import {
   Delete as DeleteIcon,
+  Refresh as RefreshIcon,
 } from '@material-ui/icons'
 import {
   lightPrimary,
@@ -20,8 +21,9 @@ import { DataContext } from '../context/DataContext'
 import { timeFormats, useInterval } from '../utils/time.utils'
 
 export default ({ item }) => {
-  const { removeItem } = useContext(DataContext)
+  const { removeItem, resetItem } = useContext(DataContext)
   const remove = () => removeItem(item)
+  const reset = () => resetItem(item)
 
   const formatKey = Object
     .entries(timeFormats)
@@ -50,8 +52,12 @@ export default ({ item }) => {
     }}>
       <ListItem>
         <ListItemAvatar>
-          <Avatar aria-label={displayText} style={{ backgroundColor: lightPrimary }}>
-            {formatKey[0].toUpperCase()}
+          <Avatar
+            aria-label={displayText}
+            style={{ backgroundColor: lightPrimary }}
+            onClick={reset}
+          >
+            <RefreshIcon />
           </Avatar>
         </ListItemAvatar>
 

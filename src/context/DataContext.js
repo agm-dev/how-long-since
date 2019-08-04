@@ -68,6 +68,7 @@ class DataProvider extends Component {
           items,
           addItem: this.addItem,
           removeItem: this.removeItem,
+          resetItem: this.resetItem,
         }}
       >
         {children}
