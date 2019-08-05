@@ -8,8 +8,17 @@ import {
   Box,
   Container,
   InputLabel,
-  TextField
+  TextField,
+  Popover,
 } from '@material-ui/core'
+import {
+  FileCopy as FileCopyIcon,
+  ImportExport as ImportExportIcon,
+} from '@material-ui/icons'
+import {
+  lightPrimary,
+  darkFont,
+} from '../styles/colors'
 
 export default () => {
   const context = useContext(DataContext)
@@ -21,9 +30,11 @@ export default () => {
 
   const exportString = exportData(items)
   const [code, setCode] = useState(exportString)
+  const [anchorEl, setAnchorEl] = useState(null) // popover
   const updateCode = e => setCode(e.target.value)
   const copyHandler = e => {
     e.preventDefault()
+    setAnchorEl(e.currentTarget) // this is not really true.. it could fail
     navigator.permissions.query({ name: 'clipboard-write' })
       .then(result => {
         if (result.state === 'granted' || result.state === 'prompt') {
@@ -35,6 +46,7 @@ export default () => {
         }
       })
   }
+  const closePopoverHandler = () => setAnchorEl(null)
   const importHandler = e => {
     e.preventDefault()
 
@@ -50,6 +62,14 @@ export default () => {
 
     console.log('data has been imported')
     navigate('/')
+  }
+
+  const popoverOpen = Boolean(anchorEl)
+  const popoverId = popoverOpen ? 'simple-popover' : undefined
+
+  const buttonColors = {
+    backgroundColor: lightPrimary,
+    color: darkFont,
   }
 
   return (
@@ -82,19 +102,44 @@ export default () => {
         <Grid item xs={12}>
           <Box className="buttons-container">
             <Button
+              aria-describedby={popoverId}
               variant="contained"
               size="medium"
               onClick={copyHandler}
+              style={buttonColors}
             >
+              <FileCopyIcon className="icon" />
               Copy
             </Button>
+            <Popover
+              id={popoverId}
+              open={popoverOpen}
+              anchorEl={anchorEl}
+              onClose={closePopoverHandler}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+              }}
+            >
+              <Typography variant="body1" style={{ padding: '5px' }}>
+                The code has been copied to your clipboard.
+              </Typography>
+            </Popover>
             <Button
               variant="contained"
               size="medium"
               onClick={importHandler}
               disabled={code === exportString}
-              style={{ marginLeft: '25px' }}
+              style={Object.assign(
+                { marginLeft: '25px' },
+                code === exportString ? {} : buttonColors,
+              )}
             >
+              <ImportExportIcon className="icon" />
               Import
             </Button>
           </Box>
