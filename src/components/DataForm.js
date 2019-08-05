@@ -20,12 +20,17 @@ import {
   darkFont,
 } from '../styles/colors'
 
+const exportData = items => {
+  const stringified = JSON.stringify(items)
+  const encoded = encodeURI(stringified)
+  return typeof btoa !== 'undefined' ? btoa(encoded) : encoded
+}
+
 export default () => {
   const context = useContext(DataContext)
   const {
     items,
     importData,
-    exportData,
   } = context
 
   const exportString = exportData(items)

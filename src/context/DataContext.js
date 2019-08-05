@@ -58,15 +58,10 @@ class DataProvider extends Component {
     }
   }
 
-  exportData = items => {
-    const stringified = JSON.stringify(items)
-    return btoa(encodeURI(stringified))
-  }
-
   importData = dataString => {
     let items
     try {
-      const decoded = decodeURI(atob(dataString))
+      const decoded = decodeURI(typeof atob !== 'undefined' ? atob(dataString) : dataString)
       items = JSON.parse(decoded)
     } catch (e) {
       throw e
@@ -86,7 +81,6 @@ class DataProvider extends Component {
           addItem: this.addItem,
           removeItem: this.removeItem,
           resetItem: this.resetItem,
-          exportData: this.exportData,
           importData: this.importData,
         }}
       >
