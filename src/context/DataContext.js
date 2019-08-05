@@ -58,6 +58,23 @@ class DataProvider extends Component {
     }
   }
 
+  exportData = items => {
+    const stringified = JSON.stringify(items)
+    return btoa(encodeURI(stringified))
+  }
+
+  importData = dataString => {
+    let items
+    try {
+      const decoded = decodeURI(atob(dataString))
+      items = JSON.parse(decoded)
+    } catch (e) {
+      throw e
+    }
+
+    this.setState({ items: items.map(item => new Item(item)) })
+  }
+
   render() {
     const { children } = this.props
     const { items } = this.state
@@ -69,6 +86,8 @@ class DataProvider extends Component {
           addItem: this.addItem,
           removeItem: this.removeItem,
           resetItem: this.resetItem,
+          exportData: this.exportData,
+          importData: this.importData,
         }}
       >
         {children}

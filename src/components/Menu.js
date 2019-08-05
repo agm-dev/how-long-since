@@ -47,6 +47,9 @@ export default () => {
         <Link to="/add">
           <MenuItem>Add</MenuItem>
         </Link>
+        <Link to="/data">
+          <MenuItem>Import / Export</MenuItem>
+        </Link>
       </Menu>
     </>
   )
