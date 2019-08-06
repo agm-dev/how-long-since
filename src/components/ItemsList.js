@@ -1,4 +1,5 @@
 import React from 'react'
+import { StaticQuery, graphql } from 'gatsby'
 import { Link } from '@reach/router'
 import { List } from '@material-ui/core'
 import ItemListItem from './ItemListItem'
@@ -15,15 +16,30 @@ export default ({ items }) => {
   const sortedItems = [...uncompleted, ...completed]
 
   return (
-    <>
-    <List>
-      {sortedItems.map(item => (
-        <Link to={`/update/${item.id}`} key={item.id} className="pointer">
-          <ItemListItem item={item} />
-        </Link>
-      ))}
-    </List>
-    <div className="breakline" />
-    </>
+    <StaticQuery
+      query={graphql`
+        query PathPrefix {
+          site {
+            pathPrefix
+          }
+        }
+      `}
+      render={data => (
+        <>
+          <List>
+            {sortedItems.map(item => (
+              <Link
+                to={`${process.env.NODE_ENV === 'production' ? data.site.pathPrefix : ''}/update/${item.id}`}
+                key={item.id}
+                className="pointer"
+              >
+                <ItemListItem item={item} />
+              </Link>
+            ))}
+          </List>
+          <div className="breakline" />
+        </>
+      )}
+    />
   )
 }
