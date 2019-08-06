@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from '@reach/router'
 import { List } from '@material-ui/core'
 import ItemListItem from './ItemListItem'
 
@@ -16,7 +17,11 @@ export default ({ items }) => {
   return (
     <>
     <List>
-      {sortedItems.map(item => <ItemListItem key={item.id} item={item} />)}
+      {sortedItems.map(item => (
+        <Link to={`/update/${item.id}`} key={item.id} className="pointer">
+          <ItemListItem item={item} />
+        </Link>
+      ))}
     </List>
     <div className="breakline" />
     </>

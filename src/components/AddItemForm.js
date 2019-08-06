@@ -31,16 +31,17 @@ const formatOptions = data => Object
   .entries(data)
   .map(([key, item], index) => <MenuItem key={index} value={item.tag}>{key}</MenuItem>)
 
-export default (props) => {
+export default ({ itemId }) => {
   const context = useContext(DataContext)
-  const { addItem } = context
+  const { addItem, items, updateItem } = context
   const now = new Date()
+  const item = itemId ? items.find(i => Number(i.id) === Number(itemId)) : null
 
-  const [text, setText] = useState('')
-  const [date, setDate] = useState(now)
-  const [time, setTime] = useState(now)
-  const [format, setFormat] = useState(timeFormats.days.tag)
-  const [goal, setGoal] = useState(null)
+  const [text, setText] = useState(item ? item.text : '')
+  const [date, setDate] = useState(item ? new Date(item.time) : now)
+  const [time, setTime] = useState(item ? new Date(item.time) : now)
+  const [format, setFormat] = useState(item ? item.format : timeFormats.days.tag)
+  const [goal, setGoal] = useState(item ? item.goal : null)
 
   const updateText = e => setText(e.target.value)
   const updateDate = date => setDate(date)
@@ -50,12 +51,17 @@ export default (props) => {
   const add = e => {
     e.preventDefault()
     const combined = getCombinedDatetime(date, time).getTime()
-    addItem({
+    const itemData = {
       text,
       time: combined,
       format,
       goal: goal > 0 ? goal : null,
-    })
+    }
+    if (itemId && item && item.id) {
+      updateItem(Object.assign(item, itemData))
+    } else {
+      addItem(itemData)
+    }
     navigate('/')
   }
 

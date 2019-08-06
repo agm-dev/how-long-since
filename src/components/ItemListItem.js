@@ -22,8 +22,12 @@ import { timeFormats, useInterval } from '../utils/time.utils'
 
 export default ({ item }) => {
   const { removeItem, resetItem } = useContext(DataContext)
-  const remove = () => removeItem(item)
-  const reset = () => {
+  const remove = e => {
+    e.preventDefault()
+    removeItem(item)
+  }
+  const reset = e => {
+    e.preventDefault()
     resetItem(item)
     setDisplayText(getDisplayText())
   }

@@ -35,6 +35,20 @@ class DataProvider extends Component {
     this.setState({ items: [...items, newItem] })
   }
 
+  updateItem = item => {
+    const { items } = this.state
+    const match = items.find(i => i.id === item.id)
+    if (match) {
+      const updatedItems = items.map(i => {
+        if (i.id === item.id) {
+          return new Item({...item})
+        }
+        return i
+      })
+      this.setState({ items: updatedItems })
+    }
+  }
+
   removeItem = item => {
     const { items } = this.state
     const match = items.find(i => i.id === item.id)
@@ -82,6 +96,7 @@ class DataProvider extends Component {
           removeItem: this.removeItem,
           resetItem: this.resetItem,
           importData: this.importData,
+          updateItem: this.updateItem,
         }}
       >
         {children}
