@@ -30,7 +30,7 @@ const getFormattedTime = (time, format) => {
     default:
       result = time / seconds.value
   }
-  return parseInt(result.toFixed())
+  return Math.floor(result)
 }
 
 export default class Item {
